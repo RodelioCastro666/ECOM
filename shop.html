@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="/Assets/CSS/style.css">
     <script src="https://kit.fontawesome.com/23729abf95.js" crossorigin="anonymous"></script>
     <title>Document</title>
+
+    <style>
+        .product img{
+            width: 70%;
+            height: auto;
+            box-sizing: border-box;
+            object-fit: cover;
+        }
+
+        .pagination a{
+            color: coral;
+        }
+        .pagination li:hover a{
+            color: grey;
+            background-color: #FFCDC1;
+        }
+    </style>
 </head>
 <body>
 
@@ -26,10 +43,10 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">home</a>
+                    <a class="nav-link" href="index.html">home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Shop</a>
+                    <a class="nav-link" href="shop.html">Shop</a>
                 </li>
 
                 <li class="nav-item">
@@ -63,13 +80,15 @@
         </div>
     </nav>
 
-    <section id="featured" class="my-5 pb-5">
+    <section id="featured" class="my-5 py-5">
         <div class="container text-center mt-5 py-5" >
-            <h5>Our Featured</h5>
-            <hr>
+            <h5>PRODUCTS</h5>
+            <div></div>
+            <hr class="mx-auto">
+            <h6>KEYCHAIN</h6>
             <p>Here you can check out our featured products</p>
         </div>
-        <div class="row mx-auto container-fluid">
+        <div class="row mx-auto container">
             <div class="product text-center col-lg-4 col-md-6 col-sm-12">
                 <img class="img-fluid mb-3 "  src="/Images/KeyChain (6).jpg" alt="">
                 <div class="star" >
@@ -84,7 +103,7 @@
                 <button class="buy-btn">Buy Now</button>
             </div>
             <div class="product text-center col-lg-4 col-md-6 col-sm-12">
-                <img class="img-fluid mb-3 "  src="/Images/KeyChain (6).jpg" alt="">
+                <img class="img-fluid mb-3 "  src="/Images/KeyChain (3).jpg" alt="">
                 <div class="star" >
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -97,7 +116,7 @@
                 <button class="buy-btn">Buy Now</button>
             </div>
             <div class="product text-center col-lg-4 col-md-6 col-sm-12">
-                <img class="img-fluid mb-3 "  src="/Images/KeyChain (6).jpg" alt="">
+                <img class="img-fluid mb-3 "  src="/Images/KeyChain (4).jpg" alt="">
                 <div class="star" >
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -113,12 +132,12 @@
     </section>
 
     <section id="featured" class="my-5 pb-5">
-        <div class="container text-center mt-5 py-5" >
+        <div class="container mt-5 py-5" >
             <h5>Our Hoodie</h5>
-            <hr class="mx-auto">
+            <hr>
             <p>Here you can check out our hoodie for pets</p>
         </div>
-        <div class="row mx-auto container-fluid">
+        <div class="row mx-auto container">
             <div class="product text-center col-lg-4 col-md-6 col-sm-12">
                 <img class="img-fluid mb-3 "  src="/Images/Dinasour Pet Hoodie Pink.jpg" alt="">
                 <div class="star" >
@@ -162,12 +181,12 @@
     </section>
 
     <section id="featured" class="my-5 pb-5">
-        <div class="container text-center mt-5 py-5" >
+        <div class="container  mt-5 py-5" >
             <h5>Hair Claw</h5>
-            <hr class="mx-auto">
+            <hr>
             <p>Here you can check out our hoodie for pets</p>
         </div>
-        <div class="row mx-auto container-fluid">
+        <div class="row mx-auto container">
             <div class="product text-center col-lg-4 col-md-6 col-sm-12">
                 <img class="img-fluid mb-3 "  src="/Images/Hair Claw (10).jpg" alt="">
                 <div class="star" >
@@ -211,12 +230,12 @@
     </section>
 
     <section id="featured" class="my-5 pb-5">
-        <div class="container text-center mt-5 py-5" >
+        <div class="container  mt-5 py-5" >
             <h5>Bracelet</h5>
-            <hr class="mx-auto">
+            <hr>
             <p>Here you can check out our hoodie for pets</p>
         </div>
-        <div class="row mx-auto container-fluid">
+        <div class="row mx-auto container">
             <div class="product text-center col-lg-4 col-md-6 col-sm-12">
                 <img class="img-fluid mb-3 "  src="/Images/Cat Bracelet (2).jpg" alt="">
                 <div class="star" >
@@ -259,6 +278,17 @@
         </div>
     </section>
 
+    <nav aria-label="Page navigation example">
+        <ul class="pagination mt-5">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
     <footer class="mt-5">
         <div class="row container mx-auto pt-5">
             <div class="footer-one col-lg-3 col-md-6 col-sm-12">
@@ -322,6 +352,7 @@
         </div>  
     </footer>
 
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

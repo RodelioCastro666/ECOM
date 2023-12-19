@@ -224,8 +224,66 @@ footer .copyright img{
     font-size: 12px;
 }
 
+hr{
+    width: 10%;
+    color: #FFCDC1;
+    background-color: red;
+    height: 2px;
+}
 
+.small-img-group{
+    display: flex;
+    justify-content: space-between;
+}
+.small-img-col{
+    flex-basis: 24%;
+    cursor: pointer;
+}
+.single-product input:focus{
+    outline: none;
+}
+.single-product input{
+    width: 50px;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+}
 
+.single-product .buy-btn{
+    background-color: #D9D9D9;
+    opacity: 1;
+    transition: 0.4s all;
+}
+.single-product .buy-btn:hover{
+    background-color: coral;
+}
+
+/*CART*/
+
+.cart table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.cart .product-info{
+    display: flex;
+    flex-wrap: wrap;
+}
+.cart th{
+    text-align: left;
+    padding: 5px 10px;
+    color: black;
+    background-color: #FFCDC1;
+
+}
+.cart td{
+    padding: 10px 20px;
+}
+.cart td img{
+    width: 100px;
+    height: 120px;
+    margin-right: 10px;
+}
 
 
 
