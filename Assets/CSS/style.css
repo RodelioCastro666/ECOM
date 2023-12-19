@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+
+
+body{
+    background-color: #fff;
+    margin: 0;
+    font-family: sans-serif;
+
+}
+.logo{
+    height: 100px;
+    width: 150px;
+}
+
+
+
+.navbar{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.nav-buttons{
+    margin-left: 10%;
+   
+}
+
+.navbar-light .navbar-nav .nav-link{
+    padding:  0 20px;
+    color: black;
+    transition: 0.4s ease;
+    font-weight: 500;
+}
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar i:hover,
+.navbar-light .navbar-nav .nav-link.active
+.navbar i:hover{
+    color:  coral;
+}
+
+button{
+    background-color: #D9D9D9;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+button:hover{
+    background-color: coral;
+}
+
+.navbar i{
+    
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    transition:  0.4s ease;
+    cursor: pointer;
+}
+#home{
+background-image: url('/Images/key\ chain\ wallpaper.jpg');
+margin-top: 8%;
+width: 100%;
+height: 100vh;
+background-size: cover;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+}
+#home span{
+    color: coral;
+}
+
+#new .one img{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: aqua;
+}
+#new .one{
+    position: relative;
+}
+#new .one .details{
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: burlywood;
+    font-weight: bold;
+    transition: 0.4s ease;
+    opacity: 0.5;
+    background-color: grey;
+    width: 80%;
+    height: 80%;
+}
+
+#new .one .details:hover{
+    background-color: #FFCDC1;;
+}
+
+#new .one:nth-child(1) .details{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; 
+}
+
+#new .one:nth-child(2) .details{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; 
+}
+
+#new .one:nth-child(3) .details{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; 
+}
+
+/*PRODUCT*/
+
+.product{
+    cursor: pointer;
+    margin-bottom: 2 rem;
+}
+.product img{
+    transition: 0.3s all;
+    border-radius: 20px;
+    width: 80%;
+}
+.product:hover img{
+    opacity: 0.6;
+}
+
+/*Mid banner*/
+#banner{
+background-image: url('/Images/key\ chain\ wallpaper.jpg');
+margin-top: 8%;
+width: 100%;
+height: 60vh;
+background-size: cover;
+background-position-x:center ;
+background-position-y: 10px;
+background-repeat: no-repeat;
+background-attachment: fixed;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+}
+#banner h3{
+    color: coral;
+}
+
+
+
+
+footer{
+    background-color: #FFCDC1;
+}
+footer h6{
+    font-weight: 700;
+}
+
+footer li{
+    padding-bottom: 10px;
+}
+footer li a{
+    color: grey;
+    text-decoration: none;
+}
+
+footer li a:hover{
+    color: #fff;
+}
+
+footer .copyright a{
+    color: black;
+    height: 40px;
+    width: 40px;
+    background-color: aliceblue;
+    display: inline-block;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 50%;
+    transition: 0.3s ease;
+    margin: 0 5px;
+}
+
+footer .copyright a:hover{
+    color: coral;
+    background-color: aliceblue;
+}
+footer p{
+    color: black;
+}
+
+footer .copyright img{
+    width: 60%;
+}
+
+.navbar .brand{
+    margin-right: 15%;
+    margin-left: -2%;
+    font-size: 22px;
+}
+.navbar .brand-second{
+    font-size: 12px;
+}
+
+
+
+
+
+
+
+
