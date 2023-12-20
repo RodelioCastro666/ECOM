@@ -284,8 +284,97 @@ hr{
     height: 120px;
     margin-right: 10px;
 }
+.cart td input{
+    width: 40px;
+    height: 30px;
+    padding: 5px;
+}
+.cart td a{
+    color: coral;
+}
+.cart .remove-btn{
+    color: coral;
+    text-decoration: none;
+    font-size: 14px;
+}
+.cart .edit-btn{
+    color: coral;
+    text-decoration: none;
+    font-size: 14px;
+}
+.cart .product-info p {
+    margin: 3px;
+}
+.cart-total{
+    display: flex;
+    justify-content: flex-end;
+}
+.cart-total table{
+    width: 100%;
+    max-width: 500px;
+    border-top: 4px solid #FFCDC1;
+}
+td:last-child{
+    text-align: right;
+}
+th:last-child{
+    text-align: right;
+}
+.checkout-container{
+    display: flex;
+    justify-content: flex-end;
+}
+.checkout-btn{
+    background-color: coral;
+    color: black;
+}
 
 
 
 
+#login-form{
+    width: 50%;
+    margin: 5px auto;
+    text-align: center;
+    padding: 20px;
+    
+}
 
+#login-form input{
+    width: 70%;
+    margin:  5px auto;
+}
+
+#login-form #login-btn{
+    width: 30%;
+    background-color: coral;
+    color: black;
+}
+
+#login-form #register-url{
+    color: coral;
+}
+
+
+#registration-form{
+
+    width: 50%;
+    margin: 5px auto;
+    text-align: center;
+    padding: 20px;
+}
+
+#registration-form input{
+     width: 70%;
+    margin:  5px auto;
+}
+
+#registration-form #register-btn{
+    width: 30%;
+    background-color: coral;
+    color: black;
+}
+
+#registration-form #login-url{
+    color: coral;
+}
