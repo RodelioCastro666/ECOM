@@ -1,3 +1,78 @@
+<?php
+
+session_start();
+
+if(isset($_POST['add_to_cart']))
+{
+    if(isset($_SESSION['cart']))
+    {
+        $product_array_ids = array_column($_SESSION['cart'], "product_id");
+
+        if(!in_array($_POST['product_id'], $product_array_ids))
+        {
+            $product_id = $_POST['product_id'];
+    
+            $product_array = array(
+                'product_id' =>  $_POST['product_id'],
+                'product_name' =>$_POST['product_name'],
+                'product_price' =>  $_POST['product_price'],
+                'product_quantity' => $_POST['product_quantity'],
+                'product_image' => $_POST['product_image'], 
+            );
+    
+            $_SESSION['cart'][$product_id] = $product_array;
+        }
+        else
+        {
+            echo '<script>alert("Product added to cart")</script>';
+           
+        }
+    }
+    
+    else
+    {
+        $product_id = $_POST['product_id'];
+        $product_name = $_POST['product_name'];
+        $product_price = $_POST['product_price'];
+        $product_quantity = $_POST['product_quantity'];
+        $product_image = $_POST['product_image'];
+
+        $product_array = array(
+            'product_id' => $product_id,
+            'product_name' => $product_name,
+            'product_price' => $product_price,
+            'product_quantity' => $product_quantity,
+            'product_image' => $product_image,
+        );
+
+        $_SESSION['cart'][$product_id] = $product_array;
+    }
+}
+
+else if(isset($_POST['remove_product']))
+{
+    $product_id = $_POST['product_id'];
+    unset($_SESSION['cart'][$product_id]);       
+}
+
+else if(isset($_POST['edit_quantity']))
+{
+    $product_id = $_POST['product_id'];
+    $product_quantity = $_POST['product_quantity'];
+
+    $product_array = $_SESSION['cart'][$product_id];
+
+    $product_array['product_quantity'] = $product_quantity;
+
+    $_SESSION['cart'][$product_id] = $product_array;
+}
+else
+{
+    header('location: index.php');
+}   
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,79 +157,43 @@
                 <th>Quantity</th>
                 <th>SubTotal</th>
             </tr>
-            <tr>
-                <td>
-                    <div class="product-info">
-                        <img src="Images/Dinasour Pet Hoodie Violet.jpg" alt="">
-                        <div>
-                            <p>White Shoes</p>
-                            <small><span>PHP</span>150</small>
-                            <br>
-                            <a class="remove-btn" href="http://"></a>
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    <input type="number" value="1">
-                    <a class="edit-btn" href="">Edit</a>
-                </td>
-
-                <td>
-                    <span>PHP</span>
-                    <span class="product-price">150</span>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="product-info">
-                        <img src="Images/Dinasour Pet Hoodie Violet.jpg" alt="">
-                        <div>
-                            <p>White Shoes</p>
-                            <small><span>PHP</span>150</small>
-                            <br>
-                            <a class="remove-btn" href="http://"></a>
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    <input type="number" value="1">
-                    <a class="edit-btn" href="">Edit</a>
-                </td>
-
-                <td>
-                    <span>PHP</span>
-                    <span class="product-price">150</span>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="product-info">
-                        <img src="Images/Dinasour Pet Hoodie Violet.jpg" alt="">
-                        <div>
-                            <p>White Shoes</p>
-                            <small><span>PHP</span>150</small>
-                            <br>
-                            <a class="remove-btn" href="http://"></a>
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    <input type="number" value="1">
-                    <a class="edit-btn" href="">Edit</a>
-                </td>
-
-                <td>
-                    <span>PHP</span>
-                    <span class="product-price">150</span>
-                </td>
-            </tr>
-
             
+            <?php foreach($_SESSION['cart'] as $key => $value) { ?>
+
+            <tr>
+                <td>
+                    <div class="product-info">
+                        <img src="Images/<?php  echo $value['product_image']; ?>"/>
+                        <div>
+                            <p><?php echo $value['product_name']; ?></p>
+                            <small><span>PHP</span><?php echo $value['product_price'];?></small>
+                            <br>
+                            <form method="POST" action="cart.php">
+                                <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
+                                <input type="submit" name="remove_product" class="remove-btn mt-5" value="remove">
+                            </form>
+                           
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <form method="POST" action="cart.php">
+                        <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>" />
+                        <input type="number" name="product_quantity"  value="<?php echo $value['product_quantity']; ?>" />
+                        <input type="submit" class="edit-btn" name="edit_quantity"  value="edit" >
+
+                    </form>
+                    
+                </td>
+
+                <td>
+                    <span>PHP</span>
+                    <span class="product-price">150</span>
+                </td>
+            </tr>
+
+            <?php  } ?>
 
         </table>
 
