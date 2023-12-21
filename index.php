@@ -30,7 +30,8 @@
                     <a class="nav-link" href="index.html">home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="shop">Shop</a>
+                    
+                    <a class="nav-link" href="shop.html">Shop</a>
                 </li>
 
                 <li class="nav-item">
@@ -41,15 +42,18 @@
                 </li>
 
                 <li class="nav-item">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                    <a href="cart.html"> <i class="fa-solid fa-bag-shopping"></i></a>
+                   
                 </li>
 
                 <li class="nav-item">
-                    <i class="fa-solid fa-address-book"></i>
+                    <a href="contact.html"> <i class="fa-solid fa-address-book"></i></a>
+                   
                 </li>
 
                 <li class="nav-item">
-                    <i class="fa-regular fa-user"></i>
+                    <a href="account.html"><i class="fa-regular fa-user"></i></a>
+                    
                 </li>
 
                 
@@ -118,13 +122,17 @@
       <!--KeyChain-->
       <section id="featured" class="my-5 pb-5">
         <div class="container text-center mt-5 py-5" >
-            <h5>Our Featured</h5>
+            <h5>Our Featuredd</h5>
             <hr>
             <p>Here you can check out our featured products</p>
         </div>
         <div class="row mx-auto container-fluid">
+
+            <?php include('server/get_featured_products.php')?>
+            <?php while($row = $featured_products->fetch_assoc()) { ?>
+
             <div onclick="window.location.href='single_product.html';" class="product text-center col-lg-4 col-md-6 col-sm-12">
-                <img class="img-fluid mb-3 "  src="/Images/KeyChain (6).jpg" alt="">
+                <img class="img-fluid mb-3"  src="/Images/<?php echo $row['product_image']; ?>" alt="">
                 <div class="star" >
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -132,36 +140,13 @@
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                 </div>
-                <h5 class="p-name" >KeyChain</h5>
-                <h4 class="p-price"> PHP 150</h4>
-                <button class="buy-btn">Buy Now</button>
+                <h5 class="p-name" ><?php echo $row['product_name']; ?></h5>
+                <h4 class="p-price"><?php echo $row['product_price']; ?></h4>
+                <a href="<?php echo "single_product.php?product_id=". $row['product_id']; ?>"><button class="buy-btn">Buy Now</button></a> 
             </div>
-            <div class="product text-center col-lg-4 col-md-6 col-sm-12">
-                <img class="img-fluid mb-3 "  src="/Images/KeyChain (6).jpg" alt="">
-                <div class="star" >
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <h5 class="p-name" >KeyChain</h5>
-                <h4 class="p-price"> PHP 150</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
-            <div class="product text-center col-lg-4 col-md-6 col-sm-12">
-                <img class="img-fluid mb-3 "  src="/Images/KeyChain (6).jpg" alt="">
-                <div class="star" >
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <h5 class="p-name" >KeyChain</h5>
-                <h4 class="p-price"> PHP 150</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
+
+           <?php } ?>
+            
         </div>
       </section>
 
@@ -182,8 +167,11 @@
             <p>Here you can check out our hoodie for pets</p>
         </div>
         <div class="row mx-auto container-fluid">
+
+            <?php include('server/get_hoodie.php')?>
+            <?php while($row = $hoodie_products->fetch_assoc()) { ?>
             <div class="product text-center col-lg-4 col-md-6 col-sm-12">
-                <img class="img-fluid mb-3 "  src="/Images/Dinasour Pet Hoodie Pink.jpg" alt="">
+                <img class="img-fluid mb-3 "  src="/Images/<?php echo $row['product_image'] ?>" alt="">
                 <div class="star" >
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -191,36 +179,13 @@
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                 </div>
-                <h5 class="p-name" >Dinasur hoodie</h5>
-                <h4 class="p-price"> PHP 150</h4>
-                <button class="buy-btn">Buy Now</button>
+                <h5 class="p-name" ><?php echo $row['product_name']; ?></h5>
+                <h4 class="p-price"><?php echo $row['product_price']; ?></h4>
+                   <a href="<?php echo "single_product.php?product_id=". $row['product_id']; ?>"><button class="buy-btn">Buy Now</button></a> 
             </div>
-            <div class="product text-center col-lg-4 col-md-6 col-sm-12">
-                <img class="img-fluid mb-3 "  src="/Images/Dinasour Pet Hoodie Black.jpg" alt="">
-                <div class="star" >
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <h5 class="p-name" >Dinasur hoodie</h5>
-                <h4 class="p-price"> PHP 150</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
-            <div class="product text-center col-lg-4 col-md-6 col-sm-12">
-                <img class="img-fluid mb-3 "  src="/Images/Dinasour Pet Hoodie Green.jpg" alt="">
-                <div class="star" >
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <h5 class="p-name" >Dinasur hoodie</h5>
-                <h4 class="p-price"> PHP 150</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
+
+            <?php } ?>
+
         </div>
       </section>
 

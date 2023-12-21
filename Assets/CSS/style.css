@@ -455,3 +455,8 @@ th:last-child{
     color: black;
     background-color: coral;
 }
+
+/*Contace*/
+#contact span{
+    color: coral;
+}

@@ -1,3 +1,28 @@
+<?php
+
+    include('server/connection.php');
+
+    if(isset($_GET['product_id'])){
+
+        $product_id = $_GET['product_id'];
+
+        $stmt  = $conn ->prepare("SELECT * FROM products WHERE product_id = ?");
+        $stmt->bind_param("i",$product_id);
+
+        $stmt->execute();
+
+        $product = $stmt->get_result();
+
+    }
+    else{
+
+        header('location: index.php');
+    }
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +36,8 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">    
+
         <div class="container">
             <img class="logo" src="Images/strawberry LOGO.png" alt="">
             <h4 class="brand" >strawberry corner <br><span class="brand-second" >est. 2023</span></h4>
@@ -29,7 +55,8 @@
                     <a class="nav-link" href="index.html">home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="shop">Shop</a>
+                    
+                    <a class="nav-link" href="shop.html">Shop</a>
                 </li>
 
                 <li class="nav-item">
@@ -40,15 +67,18 @@
                 </li>
 
                 <li class="nav-item">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                    <a href="cart.html"> <i class="fa-solid fa-bag-shopping"></i></a>
+                   
                 </li>
 
                 <li class="nav-item">
-                    <i class="fa-solid fa-address-book"></i>
+                    <a href="contact.html"> <i class="fa-solid fa-address-book"></i></a>
+                   
                 </li>
 
                 <li class="nav-item">
-                    <i class="fa-regular fa-user"></i>
+                    <a href="account.html"><i class="fa-regular fa-user"></i></a>
+                    
                 </li>
 
                 
@@ -66,38 +96,56 @@
     <!--Single products-->
     <section class="container single-product my-5 pt-5">
         <div class="row mt-5">
+
+            <?php while($row= $product->fetch_assoc()) { ?>
+
+            
+
             <div class="col-lg-5 col-md-6 col-sm-12">
-                <img class="img-fluid w-60 pb-1 " src="Images/Sea Shells Bracelet.jpg" id="mainImg">
+                <img class="img-fluid w-60 pb-1 " src="Images/<?php echo $row['product_image']; ?>" id="mainImg">
                 <div class="small-img-group">
                     <div class="small-img-col">
-                        <img src="Images/Dinasour Pet Hoodie White.jpg" width="100%" class="small-img" alt="">
+                        <img src="Images/<?php echo $row['product_image']; ?>" width="100%" class="small-img" alt="">
                     </div>
                     <div class="small-img-col">
-                        <img src="Images/Black Cat Bracelet (2).jpg" width="100%" class="small-img" alt="">
+                        <img src="Images/<?php echo $row['product_image2']; ?>" width="100%" class="small-img" alt="">
                     </div>
                     <div class="small-img-col">
-                        <img src="Images/Hair Claw (11).jpg" width="100%" class="small-img" alt="">
+                        <img src="Images/<?php echo $row['product_image3']; ?>" width="100%" class="small-img" alt="">
                     </div>
                     <div class="small-img-col">
-                        <img src="Images/KeyChain.jpg" width="100%" class="small-img" alt="">
+                        <img src="Images/<?php echo $row['product_image4']; ?>" width="100%" class="small-img" alt="">
                     </div>
                 </div>
                 
             </div>
 
+            
+
             <div class="col-lg-6 col-md-12 col-12">
                 <h6>KeyChain</h6>
-                <h4 class="py-4">Bla bla</h4>
-                <h3>PHP 150</h3>
-                <input type="number" value="1">
-                <button class="buy-btn">Add to cart</button>
+                <h4 class="py-4"><?php echo $row['product_name']; ?></h4>
+                <h3><?php echo $row['product_price']; ?></h3>
+
+                <form method="POST" action="cart.php">
+                    <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
+                    <input type="hidden" name="product_image" value="<?php echo $row['product_image']; ?>">
+                    <input type="hidden" name="product_name" value="<?php echo $row['product_name']; ?>">
+                    <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?>">
+
+                        <input type="number" name="product_quantity" value="1">
+                        <button class="buy-btn" type="submit" name="add_to_cart" >Add to cart</button>
+
+
+                </form>
+
                 <h5 class="mt-5 mb-5">Product Details</h5>
-                <span>The details of this product will be displayed The details of this product will be displayedThe details of this product will be displayed
-                    The details of this product will be displayed
-                    The details of this product will be displayed
-                    The details of this product will be displayed The details of this product will be displayed
+                <span><?php echo $row['product_description']; ?>
                 </span>
             </div>
+            
+            <?php } ?>
+            
         </div>
     </section>
 

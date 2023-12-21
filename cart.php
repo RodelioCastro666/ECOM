@@ -68,38 +68,111 @@
         </div>
     </nav>
 
-    <!--REGISTER-->
-    <section class="my-5 py-5">
-        <div class="container text-center mt-3 pt-5">
-            <h3 class="form-weight-bold">SignUp/Register</h3>
-            <hr class="mx-auto">
-        </div> 
-        <div class="mx-auto container">
-            <form id="registration-form">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" id="register-name" name="name" placeholder="Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" id="register-email" name="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" id="register-password" name="password" placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                    <label>ConfirmPassword</label>
-                    <input type="password" class="form-control" id="register-confirm-password" name="confirmPassword" placeholder="Confirm Password" required>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn" id="register-btn" value="Register">
-                </div>
-                <div class="form-group">
-                    <a id="login-url" class="btn">Do you have an Account? Login</a>
-                </div>
-            </form>
 
+
+    <!--CArt-->
+    <section class="cart container my-5 py-5" >
+        <div class="container mt-5">
+            <h3 class="font-weight-bold text-center">Cart</h3>
+
+        </div>
+        <table class="mt-5 pt-5">
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>SubTotal</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="product-info">
+                        <img src="Images/Dinasour Pet Hoodie Violet.jpg" alt="">
+                        <div>
+                            <p>White Shoes</p>
+                            <small><span>PHP</span>150</small>
+                            <br>
+                            <a class="remove-btn" href="http://"></a>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <input type="number" value="1">
+                    <a class="edit-btn" href="">Edit</a>
+                </td>
+
+                <td>
+                    <span>PHP</span>
+                    <span class="product-price">150</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="product-info">
+                        <img src="Images/Dinasour Pet Hoodie Violet.jpg" alt="">
+                        <div>
+                            <p>White Shoes</p>
+                            <small><span>PHP</span>150</small>
+                            <br>
+                            <a class="remove-btn" href="http://"></a>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <input type="number" value="1">
+                    <a class="edit-btn" href="">Edit</a>
+                </td>
+
+                <td>
+                    <span>PHP</span>
+                    <span class="product-price">150</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="product-info">
+                        <img src="Images/Dinasour Pet Hoodie Violet.jpg" alt="">
+                        <div>
+                            <p>White Shoes</p>
+                            <small><span>PHP</span>150</small>
+                            <br>
+                            <a class="remove-btn" href="http://"></a>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <input type="number" value="1">
+                    <a class="edit-btn" href="">Edit</a>
+                </td>
+
+                <td>
+                    <span>PHP</span>
+                    <span class="product-price">150</span>
+                </td>
+            </tr>
+
+            
+
+        </table>
+
+        <div class="cart-total">
+            <table>
+                <tr>
+                    <td>SubTotal</td>
+                    <td>PHP 150</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td>PHP 150</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="checkout-container">
+            <button class="btn checkout-btn">CHECKOUT</button>
         </div>
 
     </section>
@@ -165,7 +238,7 @@
                 </div>
             </div>
         </div>  
-    </footer>
+      </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
