@@ -1,3 +1,23 @@
+<?php
+
+session_start();
+
+if(!empty($_SESSION['cart']) && isset($_POST['checkout'])){
+
+}
+
+
+
+else{
+
+    header('location : index.php');
+}
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +47,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">home</a>
+                    <a class="nav-link" href="index.php">home</a>
                 </li>
                 <li class="nav-item">
                     
@@ -42,7 +62,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="cart.html"> <i class="fa-solid fa-bag-shopping"></i></a>
+                    <a href="cart.php"> <i class="fa-solid fa-bag-shopping"></i></a>
                    
                 </li>
 
@@ -76,7 +96,7 @@
             <hr class="mx-auto">
         </div> 
         <div class="mx-auto container">
-            <form id="checkout-form">
+            <form id="checkout-form" method="POST" action="server/place_order.php">
                 <div class="form-group checkout-small-element">
                     <label>Name</label>
                     <input type="text" class="form-control" id="checkout-name" name="name" placeholder="Name" required>
@@ -98,7 +118,8 @@
                     <input type="text" class="form-control" id="checkout-address" name="address" placeholder="Address" required>
                 </div>
                 <div class="form-group checkout-btn-container">
-                    <input type="submit" class="btn" id="checkout-btn" value="Checkout">
+                    <p>Total Amount: PHP <?php echo $_SESSION['total']; ?></p>
+                    <input type="submit" class="btn" name="place_order" id="checkout-btn" value="PlaceOrder">
                 </div>
                 
             </form>

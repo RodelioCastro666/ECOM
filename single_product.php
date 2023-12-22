@@ -52,7 +52,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">home</a>
+                    <a class="nav-link" href="index.php">home</a>
                 </li>
                 <li class="nav-item">
                     
@@ -67,7 +67,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="cart.html"> <i class="fa-solid fa-bag-shopping"></i></a>
+                    <a href="cart.php"> <i class="fa-solid fa-bag-shopping"></i></a>
                    
                 </li>
 

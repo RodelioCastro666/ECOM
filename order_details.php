@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">    
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">    
 
         <div class="container">
             <img class="logo" src="Images/strawberry LOGO.png" alt="">
@@ -27,7 +27,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">home</a>
+                    <a class="nav-link" href="index.php">home</a>
                 </li>
                 <li class="nav-item">
                     
@@ -42,7 +42,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="cart.html"> <i class="fa-solid fa-bag-shopping"></i></a>
+                    <a href="cart.php"> <i class="fa-solid fa-bag-shopping"></i></a>
                    
                 </li>
 
@@ -66,80 +66,12 @@
           </button>
 
         </div>
-    </nav>
+</nav>
 
 
-    <!--Account-->
-    <section class="my-5 py-5">
-        <div class="row container mx-auto">
-            <div class="text-center mt-3 pt-5 col-lg-6 col-md-12 col-sm-12">
-                <h4 class="font-weight-bold">Account Info</h4>
-                <hr class="mx-auto">
-                <div class="account-info">
-                    <p>Names <span>John</span></p>
-                    <p>Email <span>John@email.com</span></p>
-                    <p><a href="http://" id="order-btn">Your Orders</a></p>
-                    <p><a href="http://" id="logout-btn">Logout</a></p>
-                </div>
-            </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <form id="account-form">
-                    <h4>Change Password</h4>
-                    <hr>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" id="account-spassword" name="password" placeholder="Password">
 
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input type="password" class="form-control" id="account-password-confirm" name="confirmPassword" placeholder="Password">
-                        
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Change-password" class="btn" id="change-pass-btn">
-                    </div>
-                </form>
-            </div>
-        </div>
-
-    </section>
-
-    <!--Orders-->
-    <section class="orders container my-5 " >
-        <div class="container mt-5">
-            <h3 class="font-weight-bold text-center">Your Orders</h3>
-            <hr class="mx-auto">
-        </div>
-        <table class="mt-5 pt-5">
-            <tr>
-                <th>Product</th>
-                <th>Date</th>
-              
-            </tr>
-            <tr>
-                <td>
-                    <div class="product-info">
-                        <img src="Images/Black Cat Bracelet (2).jpg" alt="">
-                        <div>
-                            <p class="mt-3">Bracelet</p>
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    <span>2024-7-8</span>
-                </td>
-                
-            </tr> 
-
-        </table>
-
-        
-    </section>
-
-    <footer class="mt-1 py-15">
+<footer class="mt-1 py-15">
         <div class="row container mx-auto pt-5">
             <div class="footer-one col-lg-3 col-md-6 col-sm-12">
                 <img class="logo" src="Images/strawberry LOGO.png" alt="">
@@ -200,8 +132,8 @@
                 </div>
             </div>
         </div>  
-      </footer>
+</footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

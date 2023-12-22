@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +38,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">home</a>
+                    <a class="nav-link" href="index.php">home</a>
                 </li>
                 <li class="nav-item">
                     
@@ -42,7 +53,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="cart.html"> <i class="fa-solid fa-bag-shopping"></i></a>
+                    <a href="cart.php"> <i class="fa-solid fa-bag-shopping"></i></a>
                    
                 </li>
 
@@ -68,37 +79,17 @@
         </div>
     </nav>
 
-    <!--REGISTER-->
+
+    <!--Payment-->
     <section class="my-5 py-5">
         <div class="container text-center mt-3 pt-5">
-            <h3 class="form-weight-bold">SignUp/Register</h3>
+            <h3 class="form-weight-bold">Payment</h3>
             <hr class="mx-auto">
         </div> 
-        <div class="mx-auto container">
-            <form id="registration-form">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" id="register-name" name="name" placeholder="Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" id="register-email" name="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" id="register-password" name="password" placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                    <label>ConfirmPassword</label>
-                    <input type="password" class="form-control" id="register-confirm-password" name="confirmPassword" placeholder="Confirm Password" required>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn" id="register-btn" value="Register">
-                </div>
-                <div class="form-group">
-                    <a id="login-url" class="btn">Do you have an Account? Login</a>
-                </div>
-            </form>
+        <div class="mx-auto container text-center">
+            <p><?php echo $_GET['order_status']; ?></p>
+            <p>Total payment: <?php echo $_SESSION['total']; ?></p>
+            <input type="submit" class="btn btn-primary" value="Pay Now">
 
         </div>
 
@@ -165,7 +156,7 @@
                 </div>
             </div>
         </div>  
-    </footer>
+      </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

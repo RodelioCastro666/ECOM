@@ -298,7 +298,7 @@ hr{
     font-size: 14px;
     background-color: coral;
     width: 100%;
-    margin-top: 20px;
+    
 }
 .cart .edit-btn{
     color: black;
@@ -332,6 +332,7 @@ th:last-child{
     background-color: coral;
     color: black;
 }
+
 
 
 
@@ -419,7 +420,7 @@ th:last-child{
 }
 
 .orders th:nth-child(2){
-    text-align: right;
+    /*text-align: right;*/
 }
 
 .orders td{
@@ -431,7 +432,10 @@ th:last-child{
     margin-right: 10px;
 }
 
-
+.orders .order-details-btn{
+    color: black;
+    background-color: coral;
+}
 
 
 /*Checkout*/
@@ -453,6 +457,7 @@ th:last-child{
     margin: 10px;
     text-align: right;
     margin-right: 40px;
+    
 }
 
 #checkout-form #checkout-btn{

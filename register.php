@@ -2,103 +2,70 @@
 
 session_start();
 
-if(isset($_POST['add_to_cart']))
-{
-    if(isset($_SESSION['cart']))
-    {
-        $product_array_ids = array_column($_SESSION['cart'], "product_id");
+include('server/connection.php');
 
-        if(!in_array($_POST['product_id'], $product_array_ids))
-        {
-            $product_id = $_POST['product_id'];
-    
-            $product_array = array(
-                'product_id' =>  $_POST['product_id'],
-                'product_name' =>$_POST['product_name'],
-                'product_price' =>  $_POST['product_price'],
-                'product_quantity' => $_POST['product_quantity'],
-                'product_image' => $_POST['product_image'], 
-            );
-    
-            $_SESSION['cart'][$product_id] = $product_array;
+if(isset($_SESSION['logged_in'])){
+
+    header('location: account.php');
+    exit;
+}
+
+
+if(isset($_POST['register'])){
+
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
+
+    if($password !== $confirmPassword){
+        header('location: register.php?error=password dont match');
+    }
+
+    else if(strlen($password) < 6 ){
+        header('locatio: register.php?error=password must be at least 6 numbers');
+    }
+    else{
+
+        $stmt1 = $conn->prepare("SELECT count(*) FROM users WHERE user_email=?");
+        $stmt1->bind_param('s',$email);
+        $stmt1->execute();
+        $stmt1->bind_result($num_rows);
+        $stmt1->store_result();
+        $stmt1->fetch();
+
+        if($num_rows != 0){
+            header('location: register.php?error=user with this email already exist');
+        }   
+        else{
+
+            $stmt = $conn->prepare("INSERT INTO users (user_name,user_email,user_password)
+            VALUES (?,?,?)");
+
+            $stmt ->bind_param('sss',$name,$email,md5($password));
+
+            if($stmt->execute()){
+                $user_id =$stmt->insert_id;
+                $_SESSION['user_email'] = $email;
+                $_SESSION['user_name'] = $name;
+                $_SESSION['logged_in'] = true;
+                header('location: account.php?register_success=YOu registered sucessfully');
+            }
+            else{
+                header('location: register.php?error=could not create an account');
+            } 
         }
-        else
-        {
-            echo '<script>alert("Product added to cart")</script>';
-           
-        }
+
+       
     }
+
     
-    else
-    {
-        $product_id = $_POST['product_id'];
-        $product_name = $_POST['product_name'];
-        $product_price = $_POST['product_price'];
-        $product_quantity = $_POST['product_quantity'];
-        $product_image = $_POST['product_image'];
 
-        $product_array = array(
-            'product_id' => $product_id,
-            'product_name' => $product_name,
-            'product_price' => $product_price,
-            'product_quantity' => $product_quantity,
-            'product_image' => $product_image,
-        );
-
-        $_SESSION['cart'][$product_id] = $product_array;
-    }
-
-    calculateTotalCart();
 }
-
-else if(isset($_POST['remove_product']))
-{
-    $product_id = $_POST['product_id'];
-    unset($_SESSION['cart'][$product_id]);    
-    
-    calculateTotalCart();
-}
-
-else if(isset($_POST['edit_quantity']))
-{
-    $product_id = $_POST['product_id'];
-    $product_quantity = $_POST['product_quantity'];
-
-    $product_array = $_SESSION['cart'][$product_id];
-
-    $product_array['product_quantity'] = $product_quantity;
-
-    $_SESSION['cart'][$product_id] = $product_array;
-
-    calculateTotalCart();
-}
-else
-{
-    //header('location: index.php');
-}   
-
-function calculateTotalCart(){
-
-    $total = 0;
-
-    foreach($_SESSION['cart'] as $key => $value){
-
-        $product = $_SESSION['cart'][$key];
-        $price = $product['product_price'];
-        $quantity = $product['product_quantity'];
-
-        $total = $total + ($price * $quantity);
-
-
-    }
-
-    $_SESSION['total'] = $total;
-}
-
-
 
 
 ?>
+
 
 
 <!DOCTYPE html>
@@ -171,77 +138,39 @@ function calculateTotalCart(){
         </div>
     </nav>
 
-
-
-    <!--CArt-->
-    <section class="cart container my-5 py-5" >
-        <div class="container mt-5">
-            <h3 class="font-weight-bold text-center">Cart</h3>
-
-        </div>
-        <table class="mt-5 pt-5">
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>SubTotal</th>
-            </tr>
-            
-            <?php foreach($_SESSION['cart'] as $key => $value) { ?>
-
-            <tr>
-                <td>
-                    <div class="product-info">
-                        <img src="Images/<?php  echo $value['product_image']; ?>"/>
-                        <div>
-                            <p><?php echo $value['product_name']; ?></p>
-                            <small><span>PHP</span><?php echo $value['product_price'];?></small>
-                            <br>
-                            <form method="POST" action="cart.php">
-                                <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
-                                <input type="submit" name="remove_product" class="remove-btn mt-5" value="remove">
-                            </form>
-                           
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    <form method="POST" action="cart.php">
-                        <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>" />
-                        <input type="number" name="product_quantity"  value="<?php echo $value['product_quantity']; ?>" />
-                        <input type="submit" class="edit-btn" name="edit_quantity"  value="edit" >
-
-                    </form>
-                    
-                </td>
-
-                <td>
-                    <span>PHP</span>
-                    <span class="product-price"><?php echo $value['product_quantity'] * $value['product_price']; ?></span>
-                </td>
-            </tr>
-
-            <?php  } ?>
-
-        </table>
-
-        <div class="cart-total">
-            <table>
-               <!-- <tr>
-                    <td>SubTotal</td>
-                    <td>PHP 150</td>
-                </tr> -->
-                <tr>
-                    <td>Total</td>
-                    <td>PHP <?php echo $_SESSION['total']; ?></td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="checkout-container">
-            <form method="POST" action="checkout.php">
-            <input type="submit" class="btn checkout-btn" value="Checkout" name="checkout" >
+    <!--REGISTER-->
+    <section class="my-5 py-5">
+        <div class="container text-center mt-3 pt-5">
+            <h3 class="form-weight-bold">SignUp/Register</h3>
+            <hr class="mx-auto">
+        </div> 
+        <div class="mx-auto container">
+            <form id="registration-form" method="POST" action="register.php">
+                <p style="color: red;"> <?php if(isset($_GET['error'])){echo $_GET['error'];}  ?></p>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="register-name" name="name" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" id="register-email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="register-password" name="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <label>ConfirmPassword</label>
+                    <input type="password" class="form-control" id="register-confirm-password" name="confirmPassword" placeholder="Confirm Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn" id="register-btn" name="register" value="Register">
+                </div>
+                <div class="form-group">
+                    <a id="login-url" href="login.php" class="btn">Do you have an Account? Login</a>
+                </div>
             </form>
+
         </div>
 
     </section>
@@ -307,7 +236,7 @@ function calculateTotalCart(){
                 </div>
             </div>
         </div>  
-      </footer>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
