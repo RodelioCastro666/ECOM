@@ -469,3 +469,14 @@ th:last-child{
 #contact span{
     color: coral;
 }
+.shop-btn{
+    padding: 10px 30px;
+    background-color:#D9D9D9;
+    text-decoration: none;
+    color: black;
+    border-radius: 20px;
+}
+.layer{
+    display: flex;
+}
+

@@ -1,139 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+    include('server/connection.php');
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="/Assets/CSS/style.css">
-    <script src="https://kit.fontawesome.com/23729abf95.js" crossorigin="anonymous"></script>
-    <title>Document</title>
-</head>
-<body>
+    if(isset($_POST['order_details_btn']) && isset($_POST['order_id']))
+    {
+        $order_id = $_POST['order_id'];
+        $order_status = $_POST['order_status'];
+        $stmt = $conn->prepare("SELECT *  FROM order_items WHERE order_id = ? ");
+        $stmt ->bind_param('i',$order_id);
+        $stmt->execute();
+        $order_details = $stmt->get_result();
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">    
+        $order_total_price = calculateTotalOrderPrice($order_details);
+    }
+    else
+    {
+        header('location: account.php');
+        exit;
+    }
 
-        <div class="container">
-            <img class="logo" src="Images/strawberry LOGO.png" alt="">
-            <h4 class="brand" >strawberry corner <br><span class="brand-second" >est. 2023</span></h4>
+    function  calculateTotalOrderPrice($order_details){
+
+        $total = 0;
+
+        foreach($order_details as $_row){
+
+            $product_price = $_row['product_price'];
+            $product_quantity = $_row['product_quantity'];
+
+            $total = $total + ($product_price * $product_quantity);
+        }
+    
+       
+    
+        return $total;
+    }
+    
+?>
+
+
+
+<?php include('Layout/header.php') ?>
+
+    <!--ORDER Details-->
+    <section id="orders" class="orders container mt-5 pt-5 " >
+        <div class="container mt-5">
+            <h3 class="font-weight-bold text-center">ORDER DETAILS</h3>
+            <hr class="mx-auto">
+        </div>
+        <table class="mt-5 pt-5 mx-auto">
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                
+              
+            </tr>
             
+            <?php foreach($order_details as $row) { ?>
+            
+                <tr>
+                    <td>
+                         <div class="product-info">
+                           <img src="Images/<?php echo $row['product_image']; ?> " alt=""> 
+                            <div> 
+                                <p class="mt-3"> <?php echo $row['product_name']; ?>  </p>
+                            </div> 
+                        </div>
+                        
+                    </td>
 
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+                    <td>
+                        <span>PHP <?php echo $row['product_price']; ?> </span>
+                    </td>
 
-          <div class="collapse navbar-collapse nav-buttons" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <td>
+                        <span> <?php echo $row['product_quantity']; ?></span>
+                    </td>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">home</a>
-                </li>
-                <li class="nav-item">
-                    
-                    <a class="nav-link" href="shop.html">Shop</a>
-                </li>
-
-                <li class="nav-item">
-                    <i class="fa-regular fa-heart"></i>
-                   
-                  
-                  
-                </li>
-
-                <li class="nav-item">
-                    <a href="cart.php"> <i class="fa-solid fa-bag-shopping"></i></a>
-                   
-                </li>
-
-                <li class="nav-item">
-                    <a href="contact.html"> <i class="fa-solid fa-address-book"></i></a>
-                   
-                </li>
-
-                <li class="nav-item">
-                    <a href="account.html"><i class="fa-regular fa-user"></i></a>
-                    
-                </li>
 
                 
+                
+                </tr> 
+            <?php } ?>
 
-            </ul>
-          </div>
+        </table>
 
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+                <?php if($order_status == "not paid") { ?>
+                
+                    <form style="float: right;" method="POST" action="server/payment.php" >
+                    <input type="hidden" name="order_total_price" value="<?php echo $order_total_price; ?>" id="">
+                        <input type="hidden" name="order_status" value="<?php echo $order_status; ?>" >
+                        <input type="submit" name="order_pay_btn" class="btn btn-primary" value="Pay Now" >
+                    </form>
 
-        </div>
-</nav>
+                <?php } ?>
+
+    </section>
 
 
-
-
-<footer class="mt-1 py-15">
-        <div class="row container mx-auto pt-5">
-            <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-                <img class="logo" src="Images/strawberry LOGO.png" alt="">
-                <p class="pt-3">AFFORDABLE PRODUCTS</p>
-            </div>
-            <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-                <h6 class="pb-2">FEATURED</h6>
-                <ul class="text-uppercase">
-                    <li> <a href="">Keychains</a> </li>
-                    <li> <a href="#">HairClaw</a> </li>
-                    <li> <a href="#">Bracelet</a></li>
-                    <li> <a href="#">Hoddie</a> </li>
-                    <li> <a href="#">Headbands</a> </li>
-                </ul>
-            </div>
-
-            <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-                <h6 class="pb-2">Contact Us</h6>
-                <div>
-                    <h6 class="text-uppercase"><Address></Address></h6>
-                    <p>BLA BLA BLA</p>
-                </div>
-                <div>
-                    <h6 class="text-uppercase">PHone</h6>
-                    <p>BLA BLA BLA</p>
-                </div>
-                <div>
-                    <h6 class="text-uppercase">Email</h6>
-                    <p>BLA BLA BLA</p>
-                </div>
-            </div>
-            <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-                <h6 class="pb-2">INTAGRAM</h6>
-                <div class="row">
-                    <img class="img-fluid w-25 h-100 m-2" src="/Images/Sea Shells Bracelet (2).jpg" alt="">
-                    <img class="img-fluid w-25 h-100 m-2" src="/Images/Bear Design Bag Charm .jpg" alt="">
-                    <img class="img-fluid w-25 h-100 m-2" src="/Images/Cat Bracelet (3).jpg" alt="">
-                    <img class="img-fluid w-25 h-100 m-2" src="/Images/Tignahri Headband.jpg" alt="">
-                    <img class="img-fluid w-25 h-100 m-2" src="/Images/Stuff Toy Keychain.jpg" alt="">
-                </div>
-            </div>
-        </div>
-
-        <div class="copyright mt-5">
-            <div class="row container mx-auto">
-                <div class="col-lg-3 col-md-5 col-sm-12 mb-4">
-                    <img src="/Images/payment.jpg" alt="">
-                </div>
-
-                <div class="col-lg-4 col-md-5 col-sm-12 mb-4  mb-2">
-                    <p>Copyright ⓒ 2023 Strawberry Corner. All rights reserved.</p>
-                </div>
-
-                <div class="col-lg-3 col-md-5 col-sm-12  mb-4">
-                    <a href=""><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                </div>
-            </div>
-        </div>  
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-</body>
-</html>
+<?php include('Layout/footer.php') ?>

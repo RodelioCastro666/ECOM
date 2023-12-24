@@ -1,17 +1,3 @@
-<?php
-
-session_start();
-
-if(isset($_POST['order_pay_btn'])){
-    $order_status = $_POST['order_status'];
-    $order_total_price = $_POST['order_total_price'];
-}
-
-?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,12 +47,12 @@ if(isset($_POST['order_pay_btn'])){
                 </li>
 
                 <li class="nav-item">
-                    <a href="contact.html"> <i class="fa-solid fa-address-book"></i></a>
+                    <a href="contact.php"> <i class="fa-solid fa-address-book"></i></a>
                    
                 </li>
 
                 <li class="nav-item">
-                    <a href="account.html"><i class="fa-regular fa-user"></i></a>
+                    <a href="account.php"><i class="fa-regular fa-user"></i></a>
                     
                 </li>
 
@@ -82,38 +68,25 @@ if(isset($_POST['order_pay_btn'])){
         </div>
     </nav>
 
-
-    <!--Payment-->
-    <section class="my-5 py-5">
-        <div class="container text-center mt-3 pt-5">
-            <h3 class="form-weight-bold">Payment</h3>
+    <!--Contact-->
+    <section id="contact" class="container my-5 py-5">
+        <div class="container text-center mt-5">
+            <h4>Contact Us</h4>
             <hr class="mx-auto">
-        </div> 
-        <div class="mx-auto container text-center">
-           
-
-
-            <?php if(isset($_SESSION['total']) && $_SESSION['total'] != 0 ) {?>
-                <p>Total payment: $ <?php echo $_SESSION['total'];  ?></p>
-                <input type="submit" class="btn btn-primary" type="submit" value="Pay Now" >
-
-            <?php } else if(isset($_POST['order_status']) && $_POST['order_status'] == "not paid") { ?>
-                <p>Total payment: $<?php echo $_POST['order_total_price'];  ?></p>  
-                <input class="btn btn-primary" type="submit" value="Pay Now" >
-
-            <?php } else {?>
-                <p>You dont have an order</p>
-            <?php }?>
-
-
-
-
-
+            <p class="w-50 mx-auto">
+                PHONE: <span> 12764734894387</span>
+            </p>
+            <p class="w-50 mx-auto">
+                EMAIL: <span>brixendull@gmail.com</span> 
+            </p>
         </div>
 
-    </section>
+    </section> 
 
-    <footer class="mt-5 py-5">
+    
+
+      <!--FOOTER-->
+      <footer class="mt-5 py-5">
         <div class="row container mx-auto pt-5">
             <div class="footer-one col-lg-3 col-md-6 col-sm-12">
                 <img class="logo" src="Images/strawberry LOGO.png" alt="">

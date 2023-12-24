@@ -4,7 +4,12 @@
 
     include('connection.php');
 
-    if(isset($_POST['place_order']))
+    if(!isset($_SESSION['logged_in'])){
+        header('location: ../checkout.php?message=Please Login/Register to place an order');
+        exit;
+    }else{
+        
+        if(isset($_POST['place_order']))
     {
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -12,7 +17,7 @@
         $city = $_POST['city'];
         $address = $_POST['address'];
         $order_cost = $_SESSION['total'];
-        $order_status = "on hold";
+        $order_status = "not paid";
         $user_id = $_SESSION['user_id'];
         $order_date = date('y-m-d H:i:s');
 
@@ -21,7 +26,12 @@
 
         $stmt->bind_param('isiisss', $order_cost,$order_status,$user_id,$phone,$city,$address,$order_date);
 
-        $stmt->execute();
+        $stmt_status = $stmt->execute();
+        
+        if(!$stmt_status){
+            header('location: index.php');
+            exit;
+        }
 
         $order_id = $stmt->insert_id;
 
@@ -51,5 +61,8 @@
         header('location: payment.php? order_status="order placed successfully"');
 
     }
+    }
+
+    
 
 ?>
