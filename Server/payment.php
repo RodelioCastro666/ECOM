@@ -9,9 +9,6 @@ if(isset($_POST['order_pay_btn'])){
 
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,11 +38,11 @@ if(isset($_POST['order_pay_btn'])){
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php">home</a>
+                    <a class="nav-link" href="../index.php">home</a>
                 </li>
                 <li class="nav-item">
                     
-                    <a class="nav-link" href="shop.html">Shop</a>
+                    <a class="nav-link" href="../shop.php">Shop</a>
                 </li>
 
                 <li class="nav-item">
@@ -56,17 +53,17 @@ if(isset($_POST['order_pay_btn'])){
                 </li>
 
                 <li class="nav-item">
-                    <a href="cart.php"> <i class="fa-solid fa-bag-shopping"></i></a>
+                    <a href="../cart.php"> <i class="fa-solid fa-bag-shopping"></i></a>
                    
                 </li>
 
                 <li class="nav-item">
-                    <a href="contact.html"> <i class="fa-solid fa-address-book"></i></a>
+                    <a href="../contact.php"> <i class="fa-solid fa-address-book"></i></a>
                    
                 </li>
 
                 <li class="nav-item">
-                    <a href="account.html"><i class="fa-regular fa-user"></i></a>
+                    <a href="../account.php"><i class="fa-regular fa-user"></i></a>
                     
                 </li>
 
@@ -83,6 +80,8 @@ if(isset($_POST['order_pay_btn'])){
     </nav>
 
 
+
+
     <!--Payment-->
     <section class="my-5 py-5">
         <div class="container text-center mt-3 pt-5">
@@ -92,26 +91,83 @@ if(isset($_POST['order_pay_btn'])){
         <div class="mx-auto container text-center">
            
 
-
-            <?php if(isset($_SESSION['total']) && $_SESSION['total'] != 0 ) {?>
-                <p>Total payment: $ <?php echo $_SESSION['total'];  ?></p>
-                <input type="submit" class="btn btn-primary" type="submit" value="Pay Now" >
-
-            <?php } else if(isset($_POST['order_status']) && $_POST['order_status'] == "not paid") { ?>
+        <?php if(isset($_POST['order_status']) && $_POST['order_status'] == "not paid") { ?>
+                <?php $amount = strval( $_POST['order_total_price']); ?>
+                <?php $order_id =$_POST['order_id']; ?>
                 <p>Total payment: $<?php echo $_POST['order_total_price'];  ?></p>  
-                <input class="btn btn-primary" type="submit" value="Pay Now" >
+              <!-- <input class="btn btn-primary" type="submit" value="Pay Now" > --> 
+              <div id="paypal-button-container" ></div>
+              <div class="btn btn-primary" onclick="myFunction();" ></div>
+
+            <?php }else if(isset($_SESSION['total']) && $_SESSION['total'] != 0 ) {?>
+                <?php $amount = strval($_SESSION['total']); ?>
+                <?php $order_id = $_SESSION['order_id'];  ?>
+                <p>Total payment: $ <?php echo $_SESSION['total'];  ?></p>
+              <!--   <input type="submit" class="btn btn-primary" type="submit" value="Pay Now" > -->
+              <div id="paypal-button-container" ></div>
+              <div class="btn btn-primary" onclick="myFunction();"  ></div>
+              
+
+
+            
 
             <?php } else {?>
                 <p>You dont have an order</p>
             <?php }?>
 
-
+           
 
 
 
         </div>
 
     </section>
+
+
+      <!-- Replace "test" with your own sandbox Business account app client ID -->
+      <script src="https://www.paypal.com/sdk/js?client-id=ARfuX-nO4UfwrzuicpKd-vvzHYpPTSSwjiIkSKjMqPs25JAznXL9g58J787s6BTXyFrnETq-9PDzNxVr&currency=USD"></script>
+        <!-- Set up a container element for the button -->
+        
+        <script>
+            function myFunction(){
+                alert("lklk");
+                return window.location.href = "complete_payment.php?order_id="+<?php echo $order_id;?>
+            }
+
+        paypal.Buttons({
+            createOrder:function(data,action){
+                return action.order.create({
+                    purchase_units:[{
+                        amount:{
+                            value: '<?php echo $amount;?>'
+                        }
+                    }]
+                });
+            },
+           
+            
+            // Order is created on the server and the order id is returned
+          //  createOrder: (data, actions) => {
+          //  return fetch("/api/orders", {
+              //  method: "post",
+                // use the "body" param to optionally pass additional order information
+                // like product skus and quantities
+          //  })
+          // .then((response) => response.json())
+          //  .then((order) => order.id);
+           // },
+            // Finalize the transaction on the server after payer approval
+            onApprove: function (data, actions)  {
+            return actions.order.capture().then(function(orderData){
+                console.log('Capture result', orderData, JSON.stringify(orderData,null,2));
+                var transaction = orderData.purchase_units[0].payments.capture[0];
+                alert('Transaction '+ transaction.status + ':' + transaction.id + '\n\nSee console');
+                
+                window.location.href = "server/complete_payment.php?transaction_id="+transaction_id+"&order_id="+<?php echo $order_id; ?>;
+            });
+            }
+        }).render('#paypal-button-container');
+        </script>
 
     <footer class="mt-5 py-5">
         <div class="row container mx-auto pt-5">

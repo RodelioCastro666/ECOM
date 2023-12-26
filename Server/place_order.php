@@ -57,6 +57,7 @@
             
         }
 
+        $_SESSION['order_id'] = $order_id;
 
         header('location: payment.php? order_status="order placed successfully"');
 

@@ -12,7 +12,14 @@ body{
     width: 150px;
 }
 
-
+.cart-quantity{
+    background-color: coral;
+    color: black;
+    padding: 2px 5px;
+    border-radius: 50%;
+    margin: -7px;
+    font-size: 10px;
+}
 
 .navbar{
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);

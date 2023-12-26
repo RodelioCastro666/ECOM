@@ -4,44 +4,84 @@ include('server/connection.php');
 
 if(isset($_POST['search'])){
 
-    $category = $_POST['category'];
+        if(isset($_GET['page_no']) && $_GET['page_no'] != ""){
+        $page_no = $_GET['page_no'];
+        }
+        else{
+        $page_no = 1;
+        }
 
-    $price = $_POST['price'];
+        $category = $_POST['category'];
 
-    $stmt = $conn->prepare("SELECT * FROM products WHERE product_category=? AND product_price<=?");
+        $price = $_POST['price'];   
 
-    $stmt ->bind_param("si", $category,$price);
+        $stmt1 = $conn->prepare("SELECT COUNT(*) As  total_records FROM products WHERE product_category=? AND product_price<=?");
+        $stmt1 ->bind_param('si',$category,$price);
+        $stmt1 ->execute();
+        $stmt1->bind_result($total_records);
+        $stmt1->store_result();
+        $stmt1->fetch();
 
-    $stmt->execute();
+        $total_records_per_page = 1;
+        $offset = ($page_no-1) * $total_records_per_page;
 
-    $products = $stmt->get_result();
+        $previous_page =$page_no - 1;
+        $next_page = $page_no + 1;
+
+        $adjacents = "2";
+
+        $total_no_of_pages = ceil($total_records/$total_records_per_page);
+
+
+
+
+
+        $stmt2 = $conn->prepare("SELECT * FROM products WHERE product_category=? AND product_price<=? LIMIT $offset,$total_records_per_page");
+        $stmt2->bind_param("si", $category,$price);
+        $stmt2->execute();
+        $products = $stmt2->get_result();
+
+
 }
 else{
 
-    $stmt = $conn->prepare("SELECT * FROM products");
+  if(isset($_GET['page_no']) && $_GET['page_no'] != ""){
+     $page_no = $_GET['page_no'];
+   }
+   else{
+    $page_no = 1;
+   }
 
-    $stmt->execute();
+   $stmt1 = $conn->prepare("SELECT COUNT(*) As  total_records FROM products");
+   $stmt1 ->execute();
+   $stmt1->bind_result($total_records);
+   $stmt1->store_result();
+   $stmt1->fetch();
 
-    $products = $stmt->get_result();
-}
+
+   $total_records_per_page = 1;
+   $offset = ($page_no-1) * $total_records_per_page;
+
+   $previous_page =$page_no - 1;
+   $next_page = $page_no + 1;
+
+   $adjacents = "2";
+
+   $total_no_of_pages = ceil($total_records/$total_records_per_page);
+
+   $stmt2 = $conn->prepare("SELECT * FROM products LIMIT $offset,$total_records_per_page");
+   $stmt2->execute();
+   $products = $stmt2->get_result();
+ }
 
 
 
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php include('Layout/header.php')?>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="/Assets/CSS/style.css">
-    <script src="https://kit.fontawesome.com/23729abf95.js" crossorigin="anonymous"></script>
-    <title>Document</title>
-
-    <style>
+  <!--  <style>
         .product img{
             width: 70%;
             height: auto;
@@ -56,68 +96,8 @@ else{
             color: grey;
             background-color: #FFCDC1;
         }
-    </style>
-</head>
-<body>
+    </style> -->
 
-
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">    
-
-        <div class="container">
-            <img class="logo" src="Images/strawberry LOGO.png" alt="">
-            <h4 class="brand" >strawberry corner <br><span class="brand-second" >est. 2023</span></h4>
-            
-
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-
-          <div class="collapse navbar-collapse nav-buttons" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">home</a>
-                </li>
-                <li class="nav-item">
-                    
-                    <a class="nav-link" href="shop.html">Shop</a>
-                </li>
-
-                <li class="nav-item">
-                    <i class="fa-regular fa-heart"></i>
-                   
-                  
-                  
-                </li>
-
-                <li class="nav-item">
-                    <a href="cart.php"> <i class="fa-solid fa-bag-shopping"></i></a>
-                   
-                </li>
-
-                <li class="nav-item">
-                    <a href="contact.html"> <i class="fa-solid fa-address-book"></i></a>
-                   
-                </li>
-
-                <li class="nav-item">
-                    <a href="account.html"><i class="fa-regular fa-user"></i></a>
-                    
-                </li>
-
-                
-
-            </ul>
-          </div>
-
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-        </div>
-    </nav>
 
 
     <div class="layer" >
@@ -132,21 +112,21 @@ else{
 
                         <p>Category</p>
                             <div class="form-check" >
-                                <input type="radio" value="keychain" class="form-check-input" name="category" id="category_one">
+                                <input type="radio" value="keychain" class="form-check-input" name="category" id="category_one" <?php if(isset($category)&& $category=='keychain'){echo 'checked'; } ?> >
                                 <label class="form-check-label" for="flexRadioDefault1">Keychain</label>
                             </div>
 
                             <div class="form-check" >
-                                <input type="radio" value="hoodie" class="form-check-input" name="category" id="category_two" checked>
+                                <input type="radio" value="hoodie" class="form-check-input" name="category" id="category_two"  <?php if(isset($category)&& $category=='hoodie'){echo 'checked'; } ?>>
                                 <label class="form-check-label" for="flexRadioDefault2">Hoodie</label>
                             </div>
 
                             <div class="form-check" >
-                                <input type="radio" value="hairclaw" class="form-check-input" name="category" id="category_two" checked>
+                                <input type="radio" value="hairclaw" class="form-check-input" name="category" id="category_two"  <?php if(isset($category)&& $category=='hairclaw'){echo 'checked'; } ?>>
                                 <label class="form-check-label" for="flexRadioDefault2">HairClaw</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" value="bracelet" class="form-check-input" name="category" id="category_two" checked>
+                                <input type="radio" value="bracelet" class="form-check-input" name="category" id="category_two"  <?php if(isset($category)&& $category=='bracelet'){echo 'checked'; } ?>>
                                 <label class="form-check-label" for="flexRadioDefault2">Bracelet</label>
                             </div>
 
@@ -157,10 +137,10 @@ else{
                 <div class="row mx-1 container-fluid mt-5 fixed-right" >
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <p>PRICE</p>
-                        <input type="range" class="form-range w-auto" name="price" value="100" min="1" max="1000" id="customRange2">
+                        <input type="range" class="form-range w-auto" name="price" value="<?php if(isset($price)){echo $price; } else { echo "100";} ?>" min="1" max="500" id="customRange2">
                         <div class="">
                             <span style="float: left;">1</span>
-                            <span style="float: right;">1000</span>
+                            <span style="float: right;">500</span>
                         </div>
 
                     </div>
@@ -212,13 +192,24 @@ else{
 
     <nav aria-label="Page navigation example">
         <ul class="pagination mt-5">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            <li class="page-item <?php if($page_no<=1){echo 'disabled';}  ?> ">
+                <a class="page-link" href="<?php if($page_no <= 1){echo '#'; } else{echo "?page_no=".($page_no-1); } ?>">Previous</a>
+            
+            </li>
+            <li class="page-item"><a class="page-link" href="?page_no=1">1</a></li>
+            <li class="page-item"><a class="page-link" href="?page_no=2">2</a></li>
+
+            <?php if($page_no >=3) { ?>
+                <li class="page-item"><a class="page-link" href="#">...</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="<?php echo "?page_no=".$page_no; ?>"> <?php echo $page_no; ?></a>
+                </li>
+            <?php } ?>
+
+
+            <li class="page-item <?php if($page_no >= $total_no_of_pages){echo 'disabled'; } ?> ">
+                <a class="page-link" href="<?php if($page_no >= $total_no_of_pages) { echo'#'; } else{ "?page_no=".($page_no+1); } ?>">Next</a>
+            </li>
         </ul>
     </nav>
     <footer class="mt-5">

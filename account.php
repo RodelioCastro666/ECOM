@@ -69,6 +69,11 @@ if(isset($_SESSION['logged_in'])){
     <!--Account-->
     <section class="my-5 py-5">
         <div class="row container mx-auto">
+
+            <?php if(isset($_GET['payment_message'])) { ?>
+                <p class="mt-5 text-center "  style="color:green" ><?php echo $_GET['payment_message']; ?> </p>
+            <?php }?>
+
             <div class="text-center mt-3 pt-5 col-lg-6 col-md-12 col-sm-12">
                 <p>Name: <span> <?php if(isset($_SESSION['register_success'])){echo $_SESSION['register_success']; } ?> </span></p>
                 <p>Name: <span> <?php if(isset($_SESSION['login_success'])){echo $_SESSION['login_success']; } ?> </span></p>
